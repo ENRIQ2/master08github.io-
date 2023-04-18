@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Código QR con Javascript</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet" />
+		<link rel="stylesheet" href="estilos.css" />
+		<script defer src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+		<script defer src="aplicacion.js"></script>
+	</head>
+    
+	<body>
+		<div class="contenedor">
+		
+				<h1>FORMULARIO DE CONTACTO</h1>
+				<form id="contact-form">
+					<label for="nombre">Nombre:</label>
+					<input type="text" id="nombre" name="nombre" required>
+		
+					<label for="apellido">Apellido:</label>
+					<input type="text" id="apellido" name="apellido" required>
+		
+					<label for="telefono"> teléfono:</label>
+					<input type="tel" id="telefono" name="telefono" required>
+		
+					<label for="empresa">Empresa:</label>
+					<input type="text" id="empresa" name="empresa">
+		
+					<label for="correo">Correo electrónico:</label>
+					<input type="email" id="correo" name="correo" required>
+		
+					<label for="url">Blogger:</label>
+					<input type="url"
+						   id="url" name="url">
+					  <label for="direccion">Dirección:</label>
+					<input type="text" id="direccion" name="direccion">
+		
+					<label for="cumpleanos">Cumpleaños:</label>
+					<input type="date" id="cumpleanos" name="cumpleanos">
+		
+					<label for="redes_sociales">Redes sociales:</label>
+					<input type="text" id="redes_sociales" name="redes_sociales" placeholder="Instagram,  facebook...">
+		
+					<div class="button-container">
+						<button type="button" id="generar-qr">Generar QR</button>
+					</div>
+				</form>
+				<div id="qr-container"></div>
+			</div>
+		
+			<script>
+				document.getElementById('generar-qr').addEventListener('click', function() {
+					const nombre = document.getElementById('nombre').value;
+					const apellido = document.getElementById('apellido').value;
+					const telefono = document.getElementById('telefono').value;
+					const empresa = document.getElementById('empresa').value;
+					const correo = document.getElementById('correo').value;
+					const url = document.getElementById('url').value;
+					const direccion = document.getElementById('direccion').value;
+					const cumpleanos = document.getElementById('cumpleanos').value;
+					const redes_sociales = document.getElementById('redes_sociales').value;
+		
+					const info = `BEGIN:VCARD\n` +
+								 `VERSION:3.0\n` +
+								 `N:${apellido};${nombre}\n` +
+								 `FN:${nombre} ${apellido}\n` +
+								 `TEL;TYPE=cell:${telefono}\n` +
+								 `EMAIL:${correo}\n` +
+								 `ORG:${empresa}\n` +
+								 `URL:${url}\n` +
+								 `ADR:${direccion}\n` +
+								 `BDAY:${cumpleanos}\n` +
+								 `NOTE:Redes Sociales: ${redes_sociales}\n` +
+								 `END:VCARD`;
+		
+					const qrContainer = document.getElementById('qr-container');
+					qrContainer.innerHTML = "";
+					new QRCode(qrContainer, {
+						text: info,
+						width: 200,
+						height: 200
+					});
+				});
+			</script>
+		</body>
+		</html>
